@@ -152,27 +152,16 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-ARP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/10/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">我的第一篇博客</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/10/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2021-11-10T13:49:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-10</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="ARP-攻击"><a href="#ARP-攻击" class="headerlink" title="ARP 攻击"></a>ARP 攻击</h1><hr>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="一、ARP协议"><a href="#一、ARP协议" class="headerlink" title="一、ARP协议"></a>一、ARP协议</h3><p>ARP协议又叫地址解析协议， 主机和路由器有ARP高速缓存表，里面有本局域网上各主机或路由器的IP地址到硬件地址的映射表，查询映射表就可以找到IP对应的硬件地址，这样就可以交给数据链路层，发送数据。</p>
+<h3 id="二、怎么得到IP地址到硬件地址的映射表？"><a href="#二、怎么得到IP地址到硬件地址的映射表？" class="headerlink" title="二、怎么得到IP地址到硬件地址的映射表？"></a>二、怎么得到IP地址到硬件地址的映射表？</h3><p>主机或路由器有一块区域，存储这个映射表。在需要用到这个表的时，就开始查询，此时分两种情况：<br>情况一：没有找到，此时主机就会在本局域网上广播发送一个ARP请求分组，这个请求分组的内容：主机的IP的地址，主机硬件地址，需要查询的IP的地址。同一局域网上的其他主机，会怎么做啦？它们会做两件事：<br>第一件事就是存储主句IP与主机硬件地址的映射（如果它们的ARP高速缓存表中没有这个映射关系）；<br>第二件事就是通过解析这个数据报，看自己的IP是不是主机要查询的IP,如果是，发送一个ARP响应分组，这个ARP响应分组的内容：（自己的IP, 自己的硬件地址）；如果不是，是就不理睬。 注意的是这个ARP响应分组是一个普通的单播，只对主机发送。</p>
+<h3 id="三、实际中一台主机怎么上网的？"><a href="#三、实际中一台主机怎么上网的？" class="headerlink" title="三、实际中一台主机怎么上网的？"></a>三、实际中一台主机怎么上网的？</h3><p>了解到了以上的知识，可能你会有疑惑，平时百度时，主机时怎么找到百度服务器呢？在这里需要再强调的是，ARP请求分组不能跨路由器的。实际中两种方案的，第一种方案就是，当主机询问百度硬件地址时，网关（路由器）就会回应主机，我就是百度服务器，你发给我（这种情况类似ARP攻击）。然后就由网关转发。第二方案：主机要上网时，不询问百度的硬件地址，直接找网关的地址，如果自己ARP高速缓存表中有，则直接发送，没有就像上面介绍的方法找到网关的硬件地址，然后发送给网关。两种方案最终都得到网关的硬件地址，有网关转发。</p>
+<h2 id="进入正题"><a href="#进入正题" class="headerlink" title="进入正题"></a>进入正题</h2><h3 id="ARP攻击的原理"><a href="#ARP攻击的原理" class="headerlink" title="ARP攻击的原理"></a>ARP攻击的原理</h3><h2 id="实践演示"><a href="#实践演示" class="headerlink" title="实践演示"></a>实践演示</h2>
       
 
       
@@ -184,7 +173,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/10/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/11/13/ARP/">展开全文 >></a>
         </p>
       
 

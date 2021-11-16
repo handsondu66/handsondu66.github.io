@@ -152,6 +152,187 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-shell编程入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/16/shell%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/">shell编程入门</a>
+    </h1>
+  
+
+        
+        <a href="/2021/11/16/shell%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/" class="archive-article-date">
+  	<time datetime="2021-11-16T12:33:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、shell-简介"><a href="#一、shell-简介" class="headerlink" title="一、shell 简介"></a>一、shell 简介</h2><hr>
+<h2 id="二、shell-命令格式及常用命令"><a href="#二、shell-命令格式及常用命令" class="headerlink" title="二、shell 命令格式及常用命令"></a>二、shell 命令格式及常用命令</h2><p>Shell 命令的基本格式如下：<br>command [选项] [参数]</p>
+<p>Linux 的选项又分为短格式选项和长格式选项。<br>短格式选项是长格式选项的简写，用一个减号-和一个字母表示，例如ls -l。<br>长格式选项是完整的英文单词，用两个减号–和一个单词表示，例如ls –all。</p>
+<hr>
+<h2 id="三、Shell编程"><a href="#三、Shell编程" class="headerlink" title="三、Shell编程"></a>三、Shell编程</h2><h3 id="1-第一个Shell脚本"><a href="#1-第一个Shell脚本" class="headerlink" title="1. 第一个Shell脚本"></a>1. 第一个Shell脚本</h3><ul>
+<li><p>1.1 编写脚本: test.sh</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo &quot;hello world&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>1.2 运行脚本<br> 方式一：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd shell            # 转到test.sh 的目录下</span><br><span class="line">chmod +x ./test.sh  # 给脚本添加执行权限</span><br><span class="line">./test.sh           # 运行脚本</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> 方式二：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd shell            # 转到test.sh 的目录下</span><br><span class="line">bash test.sh        # 运行脚本  </span><br></pre></td></tr></table></figure>
+<p> 方式三：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd shell            # 转到test.sh 的目录下</span><br><span class="line">source ./test.sh    # 运行脚本</span><br></pre></td></tr></table></figure>
+<h3 id="2-变量"><a href="#2-变量" class="headerlink" title="2. 变量"></a>2. 变量</h3></li>
+</ul>
+<p>Shell在定义变量时通常不需要指明类型，直接赋值就可以。在 Bash shell 中，每一个变量的值都是字符串，无论你给变量赋值时有没有使用引号，值都会以字符串的形式存储。</p>
+<ul>
+<li><p>2.1 定义变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#等号两边不能有空格</span><br><span class="line">var1=hello</span><br><span class="line">var2=&#x27;hello&#x27;</span><br><span class="line">var3=&quot;hello&quot;</span><br></pre></td></tr></table></figure>
+<p>区别单引号与双引号：<br><img src="/2021/11/16/shell%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/%E5%8D%95%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB_001.png" alt="区分单双引号"><br><img src="/2021/11/16/shell%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/%E5%8D%95%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB%E7%BB%93%E6%9E%9C.jpg" alt="输出结果"></p>
+<p>所有从上面可以看出：</p>
+<ul>
+<li>单引号里面是什么就输出什么，即使内容中有变量和命令（命令需要反引起来）也会把它们原样输出。</li>
+<li>双引号输出时会先解析里面的变量和命令，而不是把双引号中的变量名和命令原样输出。</li>
+</ul>
+</li>
+<li><p>2.2 删除变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var1=&quot;hello&quot;</span><br><span class="line">unset var1</span><br></pre></td></tr></table></figure></li>
+<li><p>2.3 使用变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var1=&quot;hello&quot;</span><br><span class="line">$&#123;var1&#125;            #方式一，推荐</span><br><span class="line">$var1              #方式二</span><br></pre></td></tr></table></figure></li>
+<li><p>2.4 使用命令结果赋值给变量</p>
+<ul>
+<li>格式： $(命令)</li>
+<li>举例：<br>004.sh<br><img src="/2021/11/16/shell%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/%E5%8D%95%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB_001.jpg" alt="004.sh的脚本"><br><img src="/2021/11/16/shell%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/%E5%91%BD%E4%BB%A4%E7%BB%93%E6%9E%9C%E8%B5%8B%E5%80%BC%E7%BB%99%E5%8F%98%E9%87%8F.jpg" alt="结果"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>参考文章:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="http://c.biancheng.net/">http://c.biancheng.net/</a></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/11/16/shell%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-wireshark入门教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/16/wireshark%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">wireshark入门教程</a>
+    </h1>
+  
+
+        
+        <a href="/2021/11/16/wireshark%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2021-11-16T02:22:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、过滤器的使用"><a href="#一、过滤器的使用" class="headerlink" title="一、过滤器的使用"></a>一、过滤器的使用</h2><h2 id="二、数据报的分析"><a href="#二、数据报的分析" class="headerlink" title="二、数据报的分析"></a>二、数据报的分析</h2><p>  <img src="/2021/11/16/wireshark%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%8C%85.png" alt="数据包"></p>
+<ol>
+<li><p>Frame:   物理层的数据帧概况</p>
+</li>
+<li><p>Ethernet II: 数据链路层以太网帧头部信息</p>
+</li>
+<li><p>Internet Protocol Version 4: 互联网层IP包头部信息</p>
+</li>
+<li><p>Transmission Control Protocol:  传输层T的数据段头部信息，此处是TCP</p>
+</li>
+<li><p>Hypertext Transfer Protocol:  应用层的信息，此处是HTTP协议</p>
+</li>
+</ol>
+<hr>
+<p>参考文章：<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/HarveyH/article/details/113731485">https://blog.csdn.net/HarveyH/article/details/113731485</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/11/16/wireshark%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexo常见的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -296,54 +477,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/11/15/ARP%E6%94%BB%E5%87%BB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-wireshark使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="wireshark简介"><a href="#wireshark简介" class="headerlink" title="wireshark简介"></a>wireshark简介</h2><p>Wireshark（前称Ethereal）是一个网络封包分析软件。网络封包分析软件的功能是截取网络封包，并尽可能显示出最为详细的网络封包资料。（来源于百度）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/13/wireshark%E4%BD%BF%E7%94%A8/">展开全文 >></a>
         </p>
       
 
